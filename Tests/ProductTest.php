@@ -64,7 +64,6 @@ class ProductTest extends PHPUnit_Framework_TestCase
 		$item->name = "updated";
 
 		$updated_item = $this->product->update($item);
-		var_dump($updated_item);
 		$this->assertEquals("updated", $updated_item->name);
 
 	}
