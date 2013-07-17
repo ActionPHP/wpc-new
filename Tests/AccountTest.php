@@ -1,6 +1,8 @@
 <?php
-require_once '../vendor/autoload.php';
-require_once '../class/Account.php';
+
+
+require_once 'vendor/autoload.php';
+require_once 'Modules/Account/Model/Account.php';
 
 /**
 * 

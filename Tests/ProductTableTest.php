@@ -1,6 +1,6 @@
 <?php
-require_once '../vendor/autoload.php';
-require '../class/ProductTable.php';
+require_once 'vendor/autoload.php';
+require_once 'Modules/Product/Model/ProductTable.php';
 class ProductTableTest extends PHPUnit_Framework_TestCase
 {
 	public function setUp()

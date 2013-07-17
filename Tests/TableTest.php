@@ -1,7 +1,7 @@
 <?php
 
-require_once '../vendor/autoload.php';
-require_once '../class/Table.php';
+require_once 'vendor/autoload.php';
+require_once 'core/lib/Table/Table.php';
 
 class TableTest extends PHPUnit_Framework_TestCase
 {

@@ -1,7 +1,7 @@
 <?php
 
-require_once '../vendor/autoload.php';
-require_once '../class/AccountTable.php';
+require_once 'vendor/autoload.php';
+require_once 'Modules/Account/Model/AccountTable.php';
 
 class AccountTableTest extends PHPUnit_Framework_TestCase
 {

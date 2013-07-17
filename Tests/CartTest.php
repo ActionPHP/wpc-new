@@ -1,6 +1,8 @@
 <?php
-require_once '../vendor/autoload.php';
-require_once '../class/Cart.php';
+echo getcwd();
+
+require_once 'vendor/autoload.php';
+require_once 'Modules/Cart/Model/Cart.php';
 
 class CartTest extends PHPUnit_Framework_TestCase
 {
