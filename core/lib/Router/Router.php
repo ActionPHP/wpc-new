@@ -1,5 +1,4 @@
 <?php
-require_once 'Route.php';
 /**
  * Class Router
  * 
@@ -9,13 +8,13 @@ require_once 'Route.php';
 class Router
 {	
 	private $controllerFolder;
+	private $modules_path;
+	private $route;
 
 	public function execute()
 	{
 		//Let's get the controller path
 		$controllerPath = $this->getRouteControllerPath();
-
-			
 			
 			include_once $controllerPath;
 
@@ -34,7 +33,7 @@ class Router
 
 		$controller->setAction($action);
 		$controller->setParams($params);
-		$controller->execute();
+		return $controller->invoke();
 	}
 
 	public function parseParams()
@@ -78,6 +77,7 @@ class Router
 
 		$path .= $controller . '.php';
 
+		
 		if(!file_exists($path)){
 
 			throw new Exception("Controller $controller not found!");

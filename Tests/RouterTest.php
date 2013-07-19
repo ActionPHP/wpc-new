@@ -1,6 +1,7 @@
 <?php
 require_once 'vendor/autoload.php';
 require_once 'core/lib/Router/Router.php';
+require_once 'core/lib/Router/Route.php';
 
 class RouterTest extends PHPUnit_Framework_TestCase
 {
