@@ -18,6 +18,13 @@ return array(
 
 					),
 
+				'products' => array(
+
+						'Module' => 'Product',
+						'Controller' => 'ProductController',
+
+					),
+
 			),
 
 		'module_path' => array(

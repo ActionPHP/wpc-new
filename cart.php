@@ -2,6 +2,10 @@
 	include 'Layout/header.php';
 ?>
 <div id="main-view-port">
+
+	<ul>
+		<li><a href="#products" id="list-all-products" >List all products</a></li>
+	</ul>
 	<div id="view-port"></div>
 
 </div>

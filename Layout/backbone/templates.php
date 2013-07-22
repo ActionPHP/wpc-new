@@ -5,7 +5,7 @@
 	<form id="product-form" >
 		<label>
 			<strong>Product name:</strong> <input type="text" name="name"
-			id="name" value="<%= (name) ? 'namefull' : 'no name found' %>" />
+			id="name" value="<%= name %>" />
 		</label>
 				
 		<label>
@@ -23,7 +23,7 @@
 		</label>
 
 		<label>
-			<strong>Product images: </strong> <button  type="button" class="btn btn-primary">Manage images</button>
+			<strong>Product images: </strong> <button  type="button" class="btn btn-inverse">Manage images</button>
 		</label>
 		
 		<label>
@@ -36,6 +36,12 @@
 			value="" />
 		</label>
 
+		<label>
+			<input type="button" value="<%= (id) ? 'Save' : 'Create' %> Product" class="btn-large btn-primary" id="edit-product-button" /> 
+		</label>
+		<label>
+			<%= (id) ? '<input type="button" value="Delete" class="btn btn-danger"  />' : null %>
+		</label>
 	</form>
 </div>
 </script>
