@@ -16,13 +16,22 @@ class Router
 		//Let's get the controller path
 		$controllerPath = $this->getRouteControllerPath();
 			
-			include_once $controllerPath;
+			if(strpos($controllerPath, 'Controller')){
+
+				include_once $controllerPath;
+
+			}
 
 		//Let's instantiate controller
 
 		$controllerName = $this->getRouteController();
 		$controller = new $controllerName;
 
+		if(!is_a($controller, 'AbstractController')){
+
+			throw new Exception("Invalid controller $controllerName.");
+			
+		}
 		//Let's get the params
 		
 		$params = $this->getRouteParams();
