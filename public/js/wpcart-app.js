@@ -20,13 +20,13 @@
 			description: null,
 			sku: null,
 			price: null,
-			images: null
+			images: null,
+			tags: null
 		}
 	});
 
 	App.Collections.Products = Backbone.Collection.extend({
 
-		model: App.Models.Product,
 		url: '/wpcart?route=products'
 
 	});
@@ -37,16 +37,16 @@
 
 		events: {
 
-			'click #edit-product-button' : 'saveProduct'
+			'click #edit-product-button' : 'saveProduct',
+
 		},
 
 		initialize : function() {
 			
 			vent.on('product:show', this.render, this);
 
-			this.model = new App.Models.Product;
-			console.log(this.model);
-			console.log('---')
+			//this.model = new App.Models.Product;
+			
 
 		},
 
@@ -55,7 +55,7 @@
 			var template = _.template($('#product-form-template').html());
 			var view = template(this.model.toJSON());
 			this.$el.html(view);
-			console.log('Showing product of id: ' + id);
+			console.log(this.model.toJSON());
 		},
 
 		saveProduct: function(){
@@ -80,7 +80,6 @@
 
 				success: function(response){
 
-					console.log(that.model.toJSON());
 					that.render();
 				}
 			});
@@ -90,14 +89,38 @@
 
 	});
 
+App.Views.ProductListItem = Backbone.View.extend({
+		tagName: 'li',
+
+		
+		render: function(){
+
+			var template = _.template($('#product-list-item-template').html());
+			var item = this.model.toJSON();
+			var view = template(item);
+			this.$el.html(view);
+			this.$el.addClass('item-listing');
+			this.$el.attr('id', 'item-id-' + item.id );
+			return this;
+		}
+
+	});
+
+
 	App.Views.ProductList = Backbone.View.extend({
 
 		collection: new App.Collections.Products,
+		
+		events: {
+
+			'click .item-listing' : 'editProduct'
+		},
 
 		initialize: function(){
-
+		
+			$('#view-port').append($('#product-list-template').html());
+			this.$el = $('#product-list');
 			vent.on('products:show', this.render(), this);
-			console.log(this.collection.toJSON());
 		},
 
 		render: function(){
@@ -105,35 +128,33 @@
 			that = this;
 			this.collection.fetch({
 
-				success: function(){
-
-					var template = $('#product-list-template');
+				success: function(response){
 
 					_.each(that.collection.models, function(product){
 
 						var item = new App.Views.ProductListItem({ model: product});
-						var _view = item.render.el;
+						var _view = item.render().el;
 						that.$el.append(_view);
 
-					});
-
+					},this);
 				}
 
 			});
+		},
+
+		editProduct: function(e){
+
+			var element = $(e.currentTarget).attr('id');
+			id = element.replace('item-id-', '');
+			var product = this.collection.get(id);
+			var productView = new App.Views.Product({ model: product });
+			productView.render();
+
 		}
 
 	});
 
-	App.Views.ProductListItem = Backbone.View.extend({
-
-		render: function(){
-
-			
-
-		}
-
-	});
-
+	
 	App.Router = Backbone.Router.extend({
 
 		routes : {
@@ -150,7 +171,6 @@
 		productList: function(){
 
 			vent.trigger('products:show');
-			console.log('Listing all products...');
 		}
 
 		

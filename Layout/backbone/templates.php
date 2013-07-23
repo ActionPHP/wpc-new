@@ -15,11 +15,11 @@
 		
 		<label>
 			<strong>Description: </strong> <br/><textarea id="description" name="description"
-			></textarea>
+			><%= description %></textarea>
 		</label>
 		
 		<label>
-			<strong>Price: </strong> <input type="text" id="price" name="price" value="" />
+			<strong>Price: </strong> <input type="text" id="price" name="price" value="<%= price %>" />
 		</label>
 
 		<label>
@@ -28,12 +28,12 @@
 		
 		<label>
 			<strong>Tags</strong> <input type="text" name="tags" id="tags"
-			value="" />
+			value="<%= tags %>" />
 		</label>
 
 		<label>
 			<strong>SKU</strong> <input type="text" name="sku" id="sku"
-			value="" />
+			value="<%= sku %>" />
 		</label>
 
 		<label>
@@ -44,4 +44,18 @@
 		</label>
 	</form>
 </div>
+</script>
+
+<script type="text/template" id="product-list-template" >
+<h3>View all products</h3>
+<ul id="product-list">
+</ul>
+</script>
+
+<script type="text/template" id="product-list-item-template" >
+<img width="40" src= "https://s3.amazonaws.com/wpcart/rsz_img_0259.jpg" />
+<strong><%= name %></strong>
+<p>
+<%= brief_description %>
+</p>
 </script>

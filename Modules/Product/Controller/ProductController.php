@@ -17,26 +17,33 @@ class ProductController extends AbstractController
 					'price' => '297',
 					'description' => 'Your Fast & Easy Wordpress Shopping Cart',
 					'brief_description' => 'Wordpress Shopping Cart',
+					'tags' => 'powerful, profitable, easy, fast',
+					'sku' => 'ABC1',
 
 					),
 
 				array(
 
-					'id' => 1,
+					'id' => 2,
 					'name' => 'WPCart Supreme',
 					'price' => '497',
 					'description' => 'Your Fast & Easy Wordpress Shopping Cart',
 					'brief_description' => 'Wordpress Shopping Cart Extended Version',
+					'tags' => 'powerful, profitable, easy, fast',
+					'sku' => 'ABC2',
+
 
 					),
 
 				array(
 
-					'id' => 1,
-					'name' => 'WPCart Premium',
+					'id' => 3,
+					'name' => 'WPCart Extreme',
 					'price' => '997',
 					'description' => 'Your Fast & Easy Wordpress Shopping Cart',
 					'brief_description' => 'Wordpress Shopping Cart Super Mogul Version',
+					'tags' => 'powerful, profitable, easy, fast',
+					'sku' => 'ABC3',
 
 					),
 
