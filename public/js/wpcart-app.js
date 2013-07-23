@@ -12,6 +12,8 @@
 	var vent = _.extend({}, Backbone.Events);
 
 	App.Models.Product = Backbone.Model.extend({
+
+		urlRoot: '/wpcart?route=product',
 		
 		defaults: {
 			id: null,
@@ -43,19 +45,29 @@
 
 		initialize : function() {
 			
-			vent.on('product:show', this.render, this);
-
-			//this.model = new App.Models.Product;
+			vent.on('product:edit', this.render, this);
+			vent.on('product:create', this.createProduct, this);
 			
-
 		},
 
 		render: function (id) {
+			
+
+			if(!this.model){
+
+				this.fetchProduct(id);
+			}
 
 			var template = _.template($('#product-form-template').html());
 			var view = template(this.model.toJSON());
 			this.$el.html(view);
-			console.log(this.model.toJSON());
+		},
+
+		createProduct: function(){
+
+			this.model = new App.Models.Product;
+			this.render();
+
 		},
 
 		saveProduct: function(){
@@ -85,6 +97,21 @@
 			});
 ;
 
+		},
+
+		fetchProduct: function(id){
+			console.log('Fetching...');
+			this.model = new App.Models.Product({id : id});
+			this.model.url = '/wpcart?route=product&id=' + id;
+			this.model.fetch({
+
+				success: function(response){
+
+
+				}
+
+			});
+
 		}
 
 	});
@@ -109,6 +136,7 @@ App.Views.ProductListItem = Backbone.View.extend({
 
 	App.Views.ProductList = Backbone.View.extend({
 
+		el: '#view-port',
 		collection: new App.Collections.Products,
 		
 		events: {
@@ -117,14 +145,17 @@ App.Views.ProductListItem = Backbone.View.extend({
 		},
 
 		initialize: function(){
-		
-			$('#view-port').append($('#product-list-template').html());
-			this.$el = $('#product-list');
-			vent.on('products:show', this.render(), this);
+			
+			this.$el = $('#view-port');
+			vent.on('products:show', this.render, this);
 		},
 
 		render: function(){
 
+			this.$el.html(($('#product-list-template').html()));
+			//this.el = '#product-list';
+
+			console.log(this.$el.html());
 			that = this;
 			this.collection.fetch({
 
@@ -134,9 +165,10 @@ App.Views.ProductListItem = Backbone.View.extend({
 
 						var item = new App.Views.ProductListItem({ model: product});
 						var _view = item.render().el;
-						that.$el.append(_view);
-
+						that.$el.find('#product-list').append(_view);
+						console.log(_view);
 					},this);
+
 				}
 
 			});
@@ -147,8 +179,9 @@ App.Views.ProductListItem = Backbone.View.extend({
 			var element = $(e.currentTarget).attr('id');
 			id = element.replace('item-id-', '');
 			var product = this.collection.get(id);
+			router.navigate('product/' + id);
 			var productView = new App.Views.Product({ model: product });
-			productView.render();
+			productView.render(id);
 
 		}
 
@@ -159,18 +192,25 @@ App.Views.ProductListItem = Backbone.View.extend({
 
 		routes : {
 
-			'product/:id' : 'productForm',
+			'product' : 'productCreate',
+			'product/:id' : 'productEdit',
 			'products' : 'productList'
 		},
 
-		productForm : function(id){
+		productEdit : function(id){
 
-			vent.trigger('product:show', id);
+			vent.trigger('product:edit', id);
+		},
+
+		productCreate : function(){
+
+			vent.trigger('product:create');
 		},
 
 		productList: function(){
 
 			vent.trigger('products:show');
+			console.log('Show products...');
 		}
 
 		

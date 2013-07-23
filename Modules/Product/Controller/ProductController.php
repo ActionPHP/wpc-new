@@ -8,6 +8,36 @@ class ProductController extends AbstractController
 	{
 		$params = $this->getParams();
 
+		if(isset($_GET['id'])){
+
+			$id = $_GET['id'];
+			if(!ctype_digit($id)){
+
+				die('Really?');
+			}
+
+			$product = array(
+
+					'id' => 3,
+					'name' => 'WPCart Extreme',
+					'price' => '997',
+					'description' => 'Your Fast & Easy Wordpress Shopping Cart',
+					'brief_description' => 'Wordpress Shopping Cart Super Mogul Version',
+					'tags' => 'powerful, profitable, easy, fast',
+					'sku' => 'ABC3',
+
+					);
+
+					return new JSONView($product);
+
+		}
+
+		
+
+			
+
+		
+
 		$products = array(
 
 				array(
@@ -49,6 +79,7 @@ class ProductController extends AbstractController
 
 			);
 
+	
 
 		return new JSONView($products);
 	}
