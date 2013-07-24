@@ -11,18 +11,11 @@ License: GPL2
 ?><?php
 chdir(dirname(__DIR__) . '/wpcart');
 
-require_once 'core/lib/Application/Application.php';
-$config = include('application/config/application.config.php');
+require_once 'core/lib/Wordpress/WPCartWordpress.php';
+require 'core/lib/Wordpress/Router/Router.php';
+$wpcart_router = new WPCartRouter;
+$wpcart = new WPCartWordpress;
+
+$wpcart->wp_ajax('wpcart_route', array($wpcart_router, 'route'));
 
 
-$route = isset($_GET['wpcart_route']) ? $_GET['wpcart_route'] : 'index';
-$action = isset($_GET['wpcart_action']) ? $_GET['wpcart_action'] : 'index';
-$params = isset($_POST) ? $_POST : array();
-
-$application = new Application;
-
-$application->setConfig($config);
-$application->setRoute($route);
-$application->setAction($action);
-$application->setParams($params);
-$application->run();
