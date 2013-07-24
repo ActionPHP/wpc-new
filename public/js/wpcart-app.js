@@ -56,13 +56,11 @@ jQuery(document).ready(function($){
 
 		render: function (id) {
 			
-console.log(this);
-console.log(' -- -- -- ');
 			if(!this.model){
 
 				this.fetchProduct(id);
 			}
-			console.log(this.model.toJSON());
+
 			var template = _.template($('#product-form-template').html());
 			var view = template(this.model.toJSON());
 			this.$el.html(view);
@@ -76,7 +74,7 @@ console.log(' -- -- -- ');
 		},
 
 		saveProduct: function(){
-			console.log(this);
+
 			var name = $('#name').val();
 			var description = $('#description').val();
 			var brief_description = $('#brief-description').val();
@@ -105,7 +103,7 @@ console.log(' -- -- -- ');
 		},
 
 		deleteProduct: function(){
-			console.log(this.model);
+
 			var id = this.model.get('id');
 			var that = this;
 			this.model.url = ajaxurl + '?action=wpcart_route&wpcart_route=product&wpcart_action=delete';
@@ -164,7 +162,8 @@ App.Views.ProductListItem = Backbone.View.extend({
 		
 		events: {
 
-			'click .item-listing' : 'editProduct'
+			'click .item-listing' : 'editProduct',
+			'click .remove-product-button' : 'removeProduct'
 		},
 
 		initialize: function(){
@@ -197,9 +196,33 @@ App.Views.ProductListItem = Backbone.View.extend({
 
 		editProduct: function(e){
 
-			var element = $(e.currentTarget).attr('id');
-			id = element.replace('item-id-', '');
+			var id = this.getID(e, 'item-id-');
+			router.navigate('product/' + id);
+
 			vent.trigger('product:edit', id);
+
+		},
+
+		removeProduct: function(e){
+			
+			e.stopImmediatePropagation();
+			var id = this.getID(e, 'remove-item-id-');
+
+			var product = new App.Models.Product;
+
+			var model = this.collection.get(id);
+			model.url = ajaxurl + '?action=wpcart_route&wpcart_route=product&wpcart_action=delete';
+
+			model.save({});
+	
+			return;
+		},
+
+		getID: function(e, replace){
+			console.log(e);
+			var element = $(e.currentTarget).attr('id');
+			id = element.replace(replace, '');
+			return id;
 
 		}
 
@@ -228,7 +251,6 @@ App.Views.ProductListItem = Backbone.View.extend({
 		productList: function(){
 
 			vent.trigger('products:show');
-			console.log('Show products...');
 		}
 
 		

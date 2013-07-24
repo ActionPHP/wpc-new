@@ -53,6 +53,8 @@
 </script>
 
 <script type="text/template" id="product-list-item-template" >
+<a class="remove-product-button pull-right btn-small btn-danger hide" id="remove-item-id-<%= id %>"  >Delete</a>
+
 <img width="40" src= "https://s3.amazonaws.com/wpcart/rsz_img_0259.jpg" />
 <strong><%= name %></strong>
 <p>

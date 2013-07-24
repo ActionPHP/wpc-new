@@ -1,5 +1,5 @@
 <?php
-	include 'Layout/header.php';
+	include __WPCART_PATH__.'/Layout/header.php';
 ?>
 <div id="main-view-port">
 
@@ -17,6 +17,6 @@
 <!--- Backbone Templates -->
 <?php 
 
-	include 'Layout/backbone/templates.php';
+	include __WPCART_PATH__.'/Layout/backbone/templates.php';
 
 ?>

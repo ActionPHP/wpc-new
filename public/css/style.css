@@ -2,3 +2,21 @@
 
 	padding: 10px;
 }
+
+#product-list li {
+
+	padding: 10px;
+	border: 1px #ccc solid;
+
+}
+
+#product-list li .remove-product-button{
+
+	display: hidden;
+	cursor: pointer;
+}
+
+#product-list li:hover .remove-product-button{
+
+	display: inline;
+}

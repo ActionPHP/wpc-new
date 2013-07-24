@@ -9,16 +9,21 @@ Author URI: http://ActionPHP.com
 License: GPL2
 */
 ?><?php
-chdir(dirname(__DIR__) . '/wpcart');
+$admin_dir = getcwd();
+define('__WPCART_PATH__', plugin_dir_path(__FILE__));
 
-require_once 'core/lib/Wordpress/WPCartWordpress.php';
-require 'core/lib/Wordpress/Router/Router.php';
+if(is_admin()){
 
-$wpcart_router = new WPCartRouter;
-$wpcart = new WPCartWordpress;
+	chdir(__WPCART_PATH__);
+	require_once 'core/lib/Wordpress/WPCartWordpress.php';
+	require 'core/lib/Wordpress/Router/Router.php';
 
-$wpcart->wp_ajax('wpcart_route', array($wpcart_router, 'route'));
-$wpcart->wp_ajax('wpcart_route', array($wpcart_router, '__404'), true);
+	$wpcart_router = new WPCartRouter;
+	$wpcart = new WPCartWordpress;
 
-include 'init.php';
+	$wpcart->wp_ajax('wpcart_route', array($wpcart_router, 'route'));
+	$wpcart->wp_ajax('wpcart_route', array($wpcart_router, '__404'), true);
 
+	include 'init.php';
+	chdir($admin_dir);
+}

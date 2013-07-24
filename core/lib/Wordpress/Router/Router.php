@@ -1,12 +1,13 @@
 <?php
 
-require_once 'core/lib/Application/Application.php';
+require_once __WPCART_PATH__.'core/lib/Application/Application.php';
 
 class WPCartRouter
 {
 	public function route()
 	{
-
+		chdir(__WPCART_PATH__);
+		
 		$config = include('application/config/application.config.php');
 
 
