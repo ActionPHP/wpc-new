@@ -2,6 +2,12 @@
 
 class WPCartWordpress
 {
+	
+	public function admin_menu()
+	{
+		
+	}
+
 	public function wp_ajax($action, $function, $nopriv=false)
 	{
 		$slug = $this->ajax_slug($action, $nopriv);

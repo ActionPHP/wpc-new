@@ -1,3 +1,6 @@
+jQuery(document).ready(function($){
+
+
 (function(){
 
 	window.App = {
@@ -13,7 +16,7 @@
 
 	App.Models.Product = Backbone.Model.extend({
 
-		urlRoot: '/wpcart?route=product',
+		urlRoot: ajaxurl + '?action=wpcart_route&wpcart_route=product',
 		
 		defaults: {
 			id: null,
@@ -29,7 +32,7 @@
 
 	App.Collections.Products = Backbone.Collection.extend({
 
-		url: '/wpcart?route=products'
+		url: ajaxurl + '?action=wpcart_route&wpcart_route=products'
 
 	});
 
@@ -80,7 +83,7 @@
 			var sku = $('#sku').val();
 
 			that = this;
-			this.model.url = '/wpcart/?route=product&action=save';
+			this.model.url = ajaxurl + '?action=wpcart_route&wpcart_route=product&wpcart_action=save';
 			this.model.save({ 
 				name: name,
 				description: description,
@@ -102,7 +105,7 @@
 		fetchProduct: function(id){
 			console.log('Fetching...');
 			this.model = new App.Models.Product({id : id});
-			this.model.url = '/wpcart?route=product&id=' + id;
+			this.model.url = ajaxurl + '?action=wpcart_route&wpcart_route=product&id=' + id;
 			this.model.fetch({
 
 				success: function(response){
@@ -221,7 +224,6 @@ App.Views.ProductListItem = Backbone.View.extend({
 
 	
 })();
-$(document).ready(function(){
 
 	router = new App.Router;
 	new App.Views.Product;

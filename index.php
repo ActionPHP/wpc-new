@@ -13,9 +13,11 @@ chdir(dirname(__DIR__) . '/wpcart');
 
 require_once 'core/lib/Wordpress/WPCartWordpress.php';
 require 'core/lib/Wordpress/Router/Router.php';
+
 $wpcart_router = new WPCartRouter;
 $wpcart = new WPCartWordpress;
 
 $wpcart->wp_ajax('wpcart_route', array($wpcart_router, 'route'));
 
+include 'init.php';
 
