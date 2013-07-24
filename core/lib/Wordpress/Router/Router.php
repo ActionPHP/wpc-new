@@ -29,6 +29,7 @@ class WPCartRouter
 	public function __404()
 	{
 		$response = array(
+			
 				'message' => 'Wrong URL'
 			);
 
