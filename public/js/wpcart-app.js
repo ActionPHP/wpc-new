@@ -43,11 +43,12 @@ jQuery(document).ready(function($){
 		events: {
 
 			'click #edit-product-button' : 'saveProduct',
+			'click #delete-product-button' : 'deleteProduct',
 
 		},
 
 		initialize : function() {
-			
+
 			vent.on('product:edit', this.render, this);
 			vent.on('product:create', this.createProduct, this);
 			
@@ -55,12 +56,13 @@ jQuery(document).ready(function($){
 
 		render: function (id) {
 			
-
+console.log(this);
+console.log(' -- -- -- ');
 			if(!this.model){
 
 				this.fetchProduct(id);
 			}
-
+			console.log(this.model.toJSON());
 			var template = _.template($('#product-form-template').html());
 			var view = template(this.model.toJSON());
 			this.$el.html(view);
@@ -74,7 +76,7 @@ jQuery(document).ready(function($){
 		},
 
 		saveProduct: function(){
-
+			console.log(this);
 			var name = $('#name').val();
 			var description = $('#description').val();
 			var brief_description = $('#brief-description').val();
@@ -82,7 +84,7 @@ jQuery(document).ready(function($){
 			var tags = $('#tags').val();
 			var sku = $('#sku').val();
 
-			that = this;
+			var that = this;
 			this.model.url = ajaxurl + '?action=wpcart_route&wpcart_route=product&wpcart_action=save';
 			this.model.save({ 
 				name: name,
@@ -102,14 +104,32 @@ jQuery(document).ready(function($){
 
 		},
 
+		deleteProduct: function(){
+			console.log(this.model);
+			var id = this.model.get('id');
+			var that = this;
+			this.model.url = ajaxurl + '?action=wpcart_route&wpcart_route=product&wpcart_action=delete';
+			this.model.save({}, {
+
+				success: function(response){
+
+					alert('Item deleted!');
+				}
+			});
+
+		},
+
 		fetchProduct: function(id){
-			console.log('Fetching...');
+
+			var that = this;
 			this.model = new App.Models.Product({id : id});
 			this.model.url = ajaxurl + '?action=wpcart_route&wpcart_route=product&id=' + id;
 			this.model.fetch({
 
-				success: function(response){
+				success: function(product){
 
+						
+						that.render();
 
 				}
 
@@ -158,8 +178,7 @@ App.Views.ProductListItem = Backbone.View.extend({
 			this.$el.html(($('#product-list-template').html()));
 			//this.el = '#product-list';
 
-			console.log(this.$el.html());
-			that = this;
+			var that = this;
 			this.collection.fetch({
 
 				success: function(response){
@@ -169,7 +188,6 @@ App.Views.ProductListItem = Backbone.View.extend({
 						var item = new App.Views.ProductListItem({ model: product});
 						var _view = item.render().el;
 						that.$el.find('#product-list').append(_view);
-						console.log(_view);
 					},this);
 
 				}
@@ -181,10 +199,7 @@ App.Views.ProductListItem = Backbone.View.extend({
 
 			var element = $(e.currentTarget).attr('id');
 			id = element.replace('item-id-', '');
-			var product = this.collection.get(id);
-			router.navigate('product/' + id);
-			var productView = new App.Views.Product({ model: product });
-			productView.render(id);
+			vent.trigger('product:edit', id);
 
 		}
 

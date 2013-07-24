@@ -40,6 +40,7 @@ class Table implements TableInterface
 
 		$item_id = $item->id;
 
+		$updated_item = new stdClass();
 		foreach($item as $field => $value){
 
 			if($this->isValidField($field)){

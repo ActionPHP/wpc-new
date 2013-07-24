@@ -18,8 +18,9 @@ class Product
 	public function create($item)
 	{
 		$table = $this->getTable();
-		$item_id = $table->create($item);
-		return $item_id; 
+		$item->id = $table->create($item);
+
+		return $item; 
 	}
 
 	public function get($id=null)

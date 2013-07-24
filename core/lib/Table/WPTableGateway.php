@@ -16,7 +16,7 @@
 		
 		public function __construct($table_name){
 			
-			$this->WPCartTable($table_name);
+			$this->WPTableGateway($table_name);
 		
 		}
 		

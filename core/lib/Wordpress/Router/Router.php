@@ -25,4 +25,15 @@ class WPCartRouter
 
 		die();
 	}
+
+	public function __404()
+	{
+		$response = array(
+				'message' => 'Wrong URL'
+			);
+
+		$response = json_encode($response);
+
+		die($response);
+	}
 }

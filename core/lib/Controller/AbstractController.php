@@ -41,6 +41,12 @@ abstract class AbstractController
 		return $actionMethod;
 	}
 
+	public function requestBody()
+	{
+		$body = file_get_contents('php://input');
+		return $body;
+	}
+
 	public function getParams($key=null)
 	{
 		$params = $this->params;

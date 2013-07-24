@@ -40,7 +40,7 @@
 			<input type="button" value="<%= (id) ? 'Save' : 'Create' %> Product" class="btn-large btn-primary" id="edit-product-button" /> 
 		</label>
 		<label>
-			<%= (id) ? '<input type="button" value="Delete" class="btn btn-danger"  />' : null %>
+			<%= (id) ? '<input type="button" value="Delete" class="btn btn-danger" id="delete-product-button" />' : null %>
 		</label>
 	</form>
 </div>

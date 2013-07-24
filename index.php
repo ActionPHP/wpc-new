@@ -18,6 +18,7 @@ $wpcart_router = new WPCartRouter;
 $wpcart = new WPCartWordpress;
 
 $wpcart->wp_ajax('wpcart_route', array($wpcart_router, 'route'));
+$wpcart->wp_ajax('wpcart_route', array($wpcart_router, '__404'), true);
 
 include 'init.php';
 
