@@ -25,6 +25,13 @@ return array(
 
 					),
 
+				'cart' => array( 
+
+						'Module' => 'Cart',
+						'Controller' => 'CartController',
+
+					),
+
 			),
 
 		'module_path' => array(

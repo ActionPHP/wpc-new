@@ -29,10 +29,10 @@ class ProductTest extends PHPUnit_Framework_TestCase
 		$this->item = new stdClass();
 	}
 
-	public function testCreatingNewProductReturnsProductId()
+	public function testCreatingNewProductReturnsProductWithId()
 	{
 		$item = $this->item;
-		$item_id = $this->product->create($item);
+		$item_id = $this->product->create($item)->id;
 
 		$this->assertEquals(1, $item_id);
 	}

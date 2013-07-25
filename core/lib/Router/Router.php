@@ -86,7 +86,6 @@ class Router
 
 		$path .= $controller . '.php';
 
-		
 		if(!file_exists($path)){
 
 			throw new Exception("Controller $controller not found!");

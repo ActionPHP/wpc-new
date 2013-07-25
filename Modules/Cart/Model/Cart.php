@@ -1,16 +1,23 @@
 <?php
-
+//session_start();
 class Cart
 {
 
 	public function __construct($basket)
 	{
-		$this->setbasket($basket);
+		$basket = (isset($basket)) ? $basket : array();
+		$this->setBasket($basket);
 	}
 
-	public function add($product, $quantity=1)
+	/**
+	 * Adds products to basket
+	 * @param array  $product  an array containing id, and other charactertics of
+	 * product
+	 * @param integer $quantity qunatity of product
+	 */
+	public function add(Array $product, $quantity=1)
 	{
-		$basket = $this->getbasket();
+		$basket = $this->getBasket();
 		$product_id = $product['id'];
 		
 		//If the product is not yet in basket.
