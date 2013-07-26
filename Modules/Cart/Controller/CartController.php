@@ -18,7 +18,9 @@ class CartController extends AbstractController
 	
 		$this->cart->add($product);
 
-		$this->updateCart(); //!Important!
+		$cart = $this->cartArray();
+
+		return new JSONView($cart);
 	}
 
 	public function remove_Action()
@@ -72,11 +74,26 @@ class CartController extends AbstractController
 		return $item;
 	}
 
+	public function cartArray()
+	{
+		$basket = $this->updateCart(); //!Important!
+		//The basket is an associative array - we just want a simple array so we can
+		// use it as a collection for backbone
+		foreach($basket as $item){
+
+			$cart[] = $item;
+		}
+
+		return $cart;
+	}
+
 	public function updateCart()
 	{
 		$basket =$this->cart->getBasket();
 
 		$_SESSION['wpcart_cart'] = $basket;
+
+		return $basket;
 	}
 
 }

@@ -19,4 +19,5 @@ function wpcart_front_end_scripts()
 	//wp_enqueue_script('wp_cart_front_end_setup', plugins_url('wpcart/public/js/wpcart_setup.php') );
 
 	wp_enqueue_script('wp_cart_front_end', plugins_url('wpcart/public/js/wpcart-script.js'), array( 'backbone', 'jquery-ui-sortable') );
+	wp_enqueue_style('wp_cart_front_end_css', plugins_url('wpcart/public/css/wpcart-style.css') );
 }
