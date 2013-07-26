@@ -41,6 +41,12 @@ abstract class AbstractController
 		return $actionMethod;
 	}
 
+	public function getPost()
+	{
+		$post = $_POST;
+		return $post;
+	}
+	
 	public function requestBody()
 	{
 		$body = file_get_contents('php://input');

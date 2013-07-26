@@ -14,10 +14,8 @@ class CartController extends AbstractController
 
 	public function add_Action()
 	{
-		$product = $this->requestBody();
-
-		$product = (array) $product;
-
+		$product = $this->getPost();
+	
 		$this->cart->add($product);
 
 		$this->updateCart(); //!Important!
@@ -69,8 +67,8 @@ class CartController extends AbstractController
 
 	public function getItemObject()
 	{
-		$item = $this->requestBody();
-		$item = json_decode($item);
+		$item = $this->getPost();
+		$item = (object) $item;
 		return $item;
 	}
 

@@ -1,14 +1,59 @@
 jQuery(document).ready(function($){
 
-	$('.wpcart-listing').html('<input type="button" value="Add to cart" id="wpcart-item-1" />');
+	
 
 
-	$('.wpcart-listing').click(function(){
+	window.wpcart = {
 
-			$.post(wpcart_ajaxurl, {}, function(response){
+		add : function(id){
 
-					console.log(response);
+			var item = { id: id };
+			var that = this;
+			$.post(
+
+				wpcart_ajaxurl + '&wpcart_action=add', item
+				
+
+			).done(function(response){
+
+				that.getCart();
+				
+			});
+
+		},
+
+		getCart : function(){
+
+			var that = this;
+			$.get(wpcart_ajaxurl, function(response){
+
+				that.updateCart(response);
 
 			});
+		},
+
+		updateCart: function(data){
+
+			$('#wpcart-cart').html(data);
+		},
+
+		emptyCart: function(){
+
+			var that = this;
+			$.get(wpcart_ajaxurl + '&wpcart_action=empty', function(response){
+
+				that.updateCart(response);
+
+			});
+
+		}
+
+	}
+
+	$('.wpcart-listing').click(function(){
+					
+			var id = $(this).attr('id');
+			id = id.replace('wpcart-item-', '');
+			wpcart.add(id);
 	});
 });
