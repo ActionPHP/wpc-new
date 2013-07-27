@@ -8,7 +8,7 @@
 <script>
 	jQuery(document).ready(function($){
 
-		wpcart_ajaxurl = '<?php echo $wpcart_ajaxurl; ?>';
+		window.wpcart_ajaxurl = '<?php echo $wpcart_ajaxurl; ?>';
 
 	});
 </script>

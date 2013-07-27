@@ -30,7 +30,13 @@ class WPCartShortcodes
 
 	public function tempCart()
 	{
-		return '<div id="wpcart-cart" class="wpcart-basket" ><ul id="wpcart-cart-basket"></ul></div>';
+		$cart = '<div id="wpcart-cart" class="wpcart-basket" >
+		<ul id="wpcart-cart-basket"></ul>
+		<div id="wpcart-buttons" >
+		<input type="button"value="Checkout" />
+		</div></div>';
+
+		return $cart;
 	}
 
 	public function listing()

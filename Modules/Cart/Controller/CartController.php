@@ -54,22 +54,29 @@ class CartController extends AbstractController
 
 	public function index_Action()
 	{
-		$basket = $this->cart->getBasket();
+		$basket = $this->cartArray();
 
 		return new JSONView($basket);
 	}
 
 	public function getItemId()
 	{
-		$item = $this->getItemObject();
-		$id = $item->id;
+		if(isset($_GET['item_id'])){
 
+			$id = $_GET['item_id'];
+		} else {
+
+			$item = $this->getItemObject();
+			$id = $item->id;
+		}
+		
 		return $id;
 	}
 
 	public function getItemObject()
 	{
 		$item = $this->getPost();
+
 		$item = (object) $item;
 		return $item;
 	}
@@ -79,8 +86,13 @@ class CartController extends AbstractController
 		$basket = $this->updateCart(); //!Important!
 		//The basket is an associative array - we just want a simple array so we can
 		// use it as a collection for backbone
+		// 
+		
+		$cart = array();
+
 		foreach($basket as $item){
 
+			$item['id'] = $item['product']['id'];
 			$cart[] = $item;
 		}
 
