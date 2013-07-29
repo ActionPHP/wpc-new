@@ -78,7 +78,6 @@
 				$results = $results[0];
 				
 			}
-		
 			return $results;	
 		}
 		

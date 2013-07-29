@@ -1,5 +1,6 @@
 <?php
 require_once __WPCART_PATH__ . 'Modules/Cart/Model/Cart.php';
+require_once __WPCART_PATH__ . 'Modules/Product/Model/ProductFactory.php';
 require_once __WPCART_PATH__ . 'core/lib/View/JSONView.php';
 class CartController extends AbstractController
 {
@@ -9,6 +10,9 @@ class CartController extends AbstractController
 		session_start();
 		$cart = new Cart($_SESSION['wpcart_cart']);
 		$this->cart = $cart;
+
+		$product_factory = new ProductFactory;
+		$this->product = $product_factory->product();
 	
 	}
 
@@ -92,8 +96,11 @@ class CartController extends AbstractController
 
 		foreach($basket as $item){
 
-			$item['id'] = $item['product']['id'];
+			$item_id = $item['id'] = $item['product']['id'];
+			$item_details = $this->productDetails($item_id);
+			$item['product'] = (array) $item_details;
 			$cart[] = $item;
+			//$cart[] = (array) $item_details;
 		}
 
 		return $cart;
@@ -106,6 +113,18 @@ class CartController extends AbstractController
 		$_SESSION['wpcart_cart'] = $basket;
 
 		return $basket;
+	}
+
+	public function productDetails($item_id)
+	{
+		$product_details = $this->product->get($item_id);
+		return $product_details;
+		//print_r($product_details);
+	}
+
+	public function getProductTable()
+	{
+		
 	}
 
 }

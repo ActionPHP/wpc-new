@@ -8,6 +8,9 @@ jQuery(document).ready(function($){
 
 	}
 
+	var vent = _.extend({}, Backbone.Events);
+
+
 	WPCART_APP.Models.Item = Backbone.Model.extend({
 
 		defaults: {
@@ -26,7 +29,13 @@ jQuery(document).ready(function($){
 
 	WPCART_APP.Views.Cart = Backbone.View.extend({
 
+		initialize: function(){
+
+			vent.on('recalculate:subtotal', function(){ this.showSubtotal()}, this);
+		},
+
 		events: {
+
 
 
 		},
@@ -41,6 +50,46 @@ jQuery(document).ready(function($){
 				var itemView = new WPCART_APP.Views.Item({model: item });
 				that.$el.append(itemView.render().el);
 			});
+
+			this.showSubtotal();
+			
+		},
+
+		showSubtotal: function(){
+			
+			var subtotal = 0;
+
+			this.$el.find('.item-subtotal').each(function(idx, value){
+
+					var item_subtotal = $(value).text();
+					subtotal += parseInt(item_subtotal);
+			});
+
+			$('.wpcart-subtotal').text(subtotal);
+
+			//Let's also adjust the index of each item
+			this.adjustItemIndex();
+		},
+
+		adjustItemIndex : function(){
+		var _item_index = 1;
+			this.$el.find('.wpcart-basket-item').each(function(idx, value){
+
+				
+
+				$(value).find(':input').each(function(index, input){
+
+					var _name = $(input).attr('name');
+					console.log(_name);
+					var match = _name.match('_([0-9]+)?$')[0];
+
+					var _new_name = _name.replace(match, '_' + _item_index);
+					$(input).attr('name', _new_name);
+
+				});
+
+				_item_index++;
+			});
 		}
 
 	});
@@ -50,7 +99,7 @@ jQuery(document).ready(function($){
 
 		initialize: function(){
 
-			this.template = 'Product id: <%= product.id %>	| Quantity: <span style="width: 45px;" class="wpcart-item-quantity" ><%= quantity %></span><span class="wpcart-remove-item" >[x] Remove</span>';
+			this.template = $('#wpcart-ajax-template').html();
 		},
 
 		events : {
@@ -77,7 +126,18 @@ jQuery(document).ready(function($){
 		removeItem: function(e){
 			this.model.url = wpcart_ajaxurl + '&wpcart_action=remove&item_id=' + this.model.get('id');
 			this.model.destroy({});
-			this.$el.fadeOut();
+
+			that = this;
+			this.$el.fadeOut(
+
+				function(){
+
+					that.$el.remove();
+					vent.trigger('recalculate:subtotal');
+
+  				});
+			
+
 
 		}
 	});
