@@ -37,7 +37,6 @@ class WPCartShortcodes
 		<input type="hidden" value="<%= product.price %>" name="amount_16" />
 	    <input type="hidden" name="quantity_1" value="<%= quantity %>">
 
-		
 		<!-- End of PayPal details -->
 
 		<strong><%= product.name %></strong> 
@@ -47,14 +46,19 @@ class WPCartShortcodes
 
 		</script>';
 
+		$notify_url = admin_url() . 'admin-ajax.php?action=wpcart_ipn';
 		$cart = $template;
 
 		$cart .= '<div id="wpcart-cart" class="wpcart-basket" >
 
 		<form method="post" action="https://www.sandbox.paypal.com/cgi-bin/webscr" >
-	    <input type="hidden" name="business" value="projects@actionphp.com">
+	    <input type="hidden" name="business" value="payhere@actionphp.com">
+	    <input type="hidden" name="notify_url" value="' . $notify_url
+	    . '"/>
 		<input type="hidden" name="cmd" value="_cart">
 		<input type="hidden" name="upload" value="1">
+	    <input type="hidden" name="custom"	value="_field_of_" />
+
 			<ul id="wpcart-cart-basket"></ul>
 			
 			<div style="padding: 10px;" ><strong>Subtotal: </strong>$<span class="wpcart-subtotal" ></span></div>

@@ -1,6 +1,7 @@
 <?php
 
 require_once __WPCART_PATH__.'core/lib/Application/Application.php';
+require_once __WPCART_PATH__.'core/lib/PayPal/WPCartPayPal.php';
 
 class WPCartRouter
 {	
@@ -44,6 +45,15 @@ class WPCartRouter
 		$response = json_encode($response);
 
 		die($response);
+	}
+
+	public function ipn()
+	{
+
+		$paypal = new WPCartPayPal;
+		$paypal->process();
+
+		die();
 	}
 
 	public function runApp()
