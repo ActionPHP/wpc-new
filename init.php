@@ -35,9 +35,9 @@ add_action('admin_menu', 'wpcart_main_menu');
 function wpcart_main_menu(){
 	
 	add_menu_page('WPCart', 'Wordpress Shopping Cart', 'manage_options',
-			'wpcart-main-menu', 'create_main_menu');
-	$hook = add_submenu_page('wpcart-main-menu', 'Manage Products', 'Your Products',
-		'manage_options', 'wpcart-main-menu-products', 'wpcart_main_menu_products');
+			'wpcart-main-menu', 'wpcart_main_menu_products');
+	/*add_submenu_page('wpcart-main-menu', 'Manage Products', 'Your Products',
+		'manage_options', 'wpcart-main-menu-products', 'wpcart_main_menu_products');*/
 	
 }
 
@@ -50,3 +50,5 @@ function wpcart_main_menu_products(){
 
 			include 'application/wp-menu/products.php';
 }
+
+//Let's create our database
