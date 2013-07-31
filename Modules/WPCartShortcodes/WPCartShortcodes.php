@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 class WPCartShortcodes
 {	
@@ -29,7 +30,10 @@ class WPCartShortcodes
 	}
 
 	public function tempCart()
-	{
+	{	
+		//This uniquely identifies our shopping cart
+		$cart_id = $_SESSION['wpcart_cart_id'];
+
 		$template = '<script type="text/template" id="wpcart-ajax-template" >
 
 		<!-- PayPal details -->
@@ -57,7 +61,7 @@ class WPCartShortcodes
 	    . '"/>
 		<input type="hidden" name="cmd" value="_cart">
 		<input type="hidden" name="upload" value="1">
-	    <input type="hidden" name="custom"	value="_field_of_" />
+	    <input type="hidden" name="custom"	value="' . $cart_id . '" />
 
 			<ul id="wpcart-cart-basket"></ul>
 			

@@ -1,7 +1,9 @@
 <?php
 require_once __WPCART_PATH__ . 'Modules/Cart/Model/Cart.php';
+require_once __WPCART_PATH__ . 'Modules/Cart/Model/CartTableFactory.php';
 require_once __WPCART_PATH__ . 'Modules/Product/Model/ProductFactory.php';
 require_once __WPCART_PATH__ . 'core/lib/View/JSONView.php';
+
 class CartController extends AbstractController
 {
 	public function __construct()
@@ -10,6 +12,13 @@ class CartController extends AbstractController
 		session_start();
 		$cart = new Cart($_SESSION['wpcart_cart']);
 		$this->cart = $cart;
+
+		$cartTableFactory = new CartTableFactory;
+		$this->cartTable = $cartTableFactory->cartTable();
+
+		$cart_id = md5('xToTal' . session_id());
+
+		$_SESSION['wpcart_cart_id'] = $cart_id;
 
 		$product_factory = new ProductFactory;
 		$this->product = $product_factory->product();
@@ -122,6 +131,22 @@ class CartController extends AbstractController
 		//print_r($product_details);
 	}
 
+	public function cartIdExists()
+	{
+		$cartDetails = $this->cartTable->get_by('cart_id', $cart_id);
+
+		if(empty($cartDetails)){
+
+			return false;
+		}
+
+		return true;
+	}
+
+	public function updateCartTable($basket)
+	{
+		# code...
+	}
 	public function getProductTable()
 	{
 		

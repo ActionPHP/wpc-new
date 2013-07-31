@@ -1,5 +1,5 @@
 <?php
-
+///TODO: Come back to this and verify payments properly
 class WPCartPayPal
 {	
 	private $paypal_url = 'www.sandbox.paypal.com';
@@ -14,6 +14,8 @@ class WPCartPayPal
 		if($this->verify()){
 
 			update_option('aa1', 'Of course it\'s working - just as expected.');
+
+			//Update order Status to 'Payment Complete'
 		}
 	
 	}
@@ -46,6 +48,8 @@ class WPCartPayPal
 		$receiver_email = $_POST['receiver_email'];
 		$payer_email = $_POST['payer_email'];
 
+		$this->cart_id = $_POST['custom'];
+
 		$received_data = $_POST;
 		
 		if (!$fp) {
@@ -66,10 +70,10 @@ class WPCartPayPal
 			if(
 
 				$payment_status == 'Completed' 
-				&& !$this->transactionExists()
-				&& $receiver_email == $this->business_email
-				&& $payment_currency == $this->currency
-				&& $payment_amount == $this->payment_amount
+				//&& !$this->transactionExists()
+				//&& $receiver_email == $this->business_email
+				//&& $payment_currency == $this->currency
+				//&& $payment_amount == $this->payment_amount
 				){ 	return true;}
 
 		}
@@ -93,5 +97,26 @@ class WPCartPayPal
 
 		return false;
 	}
+
+	public function verifyAmount($amount)
+	{
+		
+	}
+
+	public function verifyBusinessEmail($business_email)
+	{
+		
+	}
+
+	public function verifyCurrency($currency)
+	{
+		
+	}
+
+	public function getCartTable()
+	{
+		
+	}
+
 }
 
