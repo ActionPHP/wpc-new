@@ -21,7 +21,7 @@ if(is_admin() || __WPCART_SHOPPING__){
 
 	chdir(__WPCART_PATH__);
 	require_once 'core/lib/Wordpress/WPCartWordpress.php';
-	require 'core/lib/Wordpress/Router/Router.php';
+	require_once 'core/lib/Wordpress/Router/Router.php';
 
 	$wpcart_router = new WPCartRouter;
 	$wpcart = new WPCartWordpress;
@@ -65,7 +65,8 @@ function wpcart_product_table()
 			,name VARCHAR(255) NOT NULL 
 			,brief_description VARCHAR(250) NOT NULL 
 			,description TEXT NOT NULL 
-			,price DECIMAL(11, 2) NOT NULL 
+			,price DECIMAL(11, 2) NOT NULL
+			,weight DECIMAL(11, 2) NOT NULL 
 			,tags TEXT NOT NULL,
 			Status VARCHAR(10) DEFAULT 'fresh' NOT NULL
 		)
@@ -76,5 +77,75 @@ function wpcart_product_table()
 	
 		dbDelta($sql);
 
+		$table_name = $wpdb->prefix . 'WPCartProperty';
+
+		$sql = "CREATE TABLE IF NOT EXISTS $table_name
+		(
+			id INT NOT NULL AUTO_INCREMENT
+			,PRIMARY KEY (id)
+			,family_id INT NOT NULL 
+			,name VARCHAR(250) NOT NULL
+			,Status VARCHAR(10) DEFAULT 'fresh' NOT NULL
+		)";
+
+		dbDelta($sql);
+
+		$table_name = $wpdb->prefix . 'WPCartPropertyValue';
+
+		$sql = "CREATE TABLE IF NOT EXISTS $table_name
+		(
+			id INT NOT NULL AUTO_INCREMENT
+			,PRIMARY KEY (id)
+			,property_id INT NOT NULL 
+			,name TEXT NOT NULL
+			,Status VARCHAR(10) DEFAULT 'fresh' NOT NULL
+		)";
+	
+		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+	
+		dbDelta($sql);
+
+		$table_name = $wpdb->prefix . 'WPCartCategory';
+
+		$sql = "CREATE TABLE IF NOT EXISTS $table_name
+		(
+			id INT NOT NULL AUTO_INCREMENT
+			,PRIMARY KEY (id)
+			,name VARCHAR(250) NOT NULL 
+			,description TEXT NOT NULL 
+			,image VARCHAR(1024) NOT NULL 
+			,tag_line VARCHAR(250) NOT NULL
+			,Status VARCHAR(10) DEFAULT 'fresh' NOT NULL
+		)";
+
+		dbDelta($sql);
+
+		$table_name = $wpdb->prefix . 'WPCartFamily';
+
+		$sql = "CREATE TABLE IF NOT EXISTS $table_name
+		(
+			id INT NOT NULL AUTO_INCREMENT
+			,PRIMARY KEY (id)
+			,name VARCHAR(250) NOT NULL
+			,Status VARCHAR(10) DEFAULT 'fresh' NOT NULL
+		)";
+
+		dbDelta($sql);
+		
+		$table_name = $wpdb->prefix . 'WPCartProductPropertyValue';
+		
+		$sql = "CREATE TABLE IF NOT EXISTS $table_name
+		(
+			id INT NOT NULL AUTO_INCREMENT
+			,PRIMARY KEY (id)
+			,property_value_id INT NOT NULL 
+			,product_id INT NOT NULL 
+			,affects_price BIT NOT NULL 
+			,price_difference DECIMAL(11,2) NOT NULL
+			,Status VARCHAR(10) DEFAULT 'fresh' NOT NULL
+		)";
+
+	
+		dbDelta($sql);
 
 	}

@@ -3,6 +3,16 @@
 	padding: 10px;
 }
 
+#main-view-port label {
+
+	margin-bottom: 15px;
+}
+
+#main-view-port label input[type="text"]{
+
+	height: 30px;
+}
+
 #product-list li {
 
 	padding: 10px;
@@ -19,4 +29,31 @@
 #product-list li:hover .remove-product-button{
 
 	display: inline;
+}
+
+.wpcart-long-input {
+
+	width: 100%;
+}
+
+.wpcart-medium-input {
+
+	width: 50%;
+}
+
+/* Additional attributes */
+#wpcart-additional-attributes {
+
+	padding: 10px;
+	margin: 15px 0 ;
+	border-top: 1px #ccc dashed;
+
+}
+
+#wpcart-property-list li {
+
+	clear: both;
+	margin: 15px 0 50px 0;
+	display: block;
+	height: auto;
 }

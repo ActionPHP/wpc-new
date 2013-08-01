@@ -25,6 +25,9 @@ function wpcart_admin_scripts($hook){
 			
 			wp_register_style( 'wpcart_style', plugins_url('public/css/style.css', __FILE__) );
         	wp_enqueue_style( 'wpcart_style' );
+
+        	wp_enqueue_script('wp_cart_tagsinput', plugins_url('wpcart/public/js/jquery.tagsinput.min.js'), array( 'jquery') );
+			wp_enqueue_style('wp_cart_tagsinput_css', plugins_url('wpcart/public/css/jquery.tagsinput.css') );
 		}
 	
 }
