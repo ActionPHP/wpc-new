@@ -41,12 +41,21 @@
 	width: 50%;
 }
 
-/* Additional attributes */
-#wpcart-additional-attributes {
+/* Product options */
+#wpcart-product-options {
 
 	padding: 10px;
 	margin: 15px 0 ;
-	border-top: 1px #ccc dashed;
+	border-top: 1px #777 dashed;
+
+}
+
+#wpcart-product-options-sandbox{
+
+	padding: 10px;
+	border: 1px #ccc solid;
+	height: auto;
+	width: 640px;
 
 }
 

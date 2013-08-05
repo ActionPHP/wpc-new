@@ -49,20 +49,16 @@
 			<strong>Download URL</strong> <input type="text" name="download-url" value="" id="download-url" /> <button
 		type="button" class="btn btn-inverse">Upload file</button>
 		</label>
-		<div id="wpcart-additional-attributes" >
-		<label>
-		<strong>Product Options</strong>  
-		</label>
 
-		<label>
-			<input type="text" id="wpcart-new-property-name" /><button type="button" class="btn btn-default" id="wpcart-add-property-button"><strong> +	</strong>
-		Add option</button>
-		</label>
-		
-		<ul id="wpcart-property-list"></ul>
-		
+		<!-- Manage product options -->
+		<div id="wpcart-product-options" >
+				<label>
+					<strong>Product options</strong>
+				</label>
+
+				<div id="wpcart-product-options-sandbox" ></div>
 		</div>
-
+		<!-- End manage product options -->
 		<label>
 			<input type="button" value="<%= (id) ? 'Save' : 'Create' %> Product" class="btn-large btn-primary" id="edit-product-button" /> 
 		</label>
@@ -91,20 +87,20 @@ id="<%= id %>"]
 </script>
 
 <!-- Product properties -->
-<script type="text/template" id="wpcart-property-list-template" >
-
-
-</script>
-
-<script type="text/template" id="wpcart-property-list-item-template" >
-
-<label  style="display: inline;">
-Option name: <input type="text" class="wpcart-property-name" value="<%= name %>" />
+<script type="text/template" id="wpcart-product-options-sandbox-template" >
+<label>
+	<span>Option name: </span><input id="wpcart-option-name" value="<%= name %>" type="text" />
 </label>
 
-<label style="display: inline;">
-Option values: <input type="text" name="wpcart-property-value" value="" class="wpcart-medium-input wpcart-tags-input" />
+<label style="float: right;">
+	<ul>
+
+	</ul>
 </label>
 
-
+<label>
+	<button type="button" class="btn btn-default"  >Save option</button>
+</label>
 </script>
+
+<script type="text/template" id="" ></script>

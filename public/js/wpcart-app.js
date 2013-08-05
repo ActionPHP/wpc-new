@@ -66,6 +66,8 @@ jQuery(document).ready(function($){
 			var template = _.template($('#product-form-template').html());
 			var view = template(this.model.toJSON());
 			this.$el.html(view);
+
+			vent.trigger('product:options');
 		},
 
 		createProduct: function(){
@@ -247,6 +249,61 @@ App.Views.ProductListItem = Backbone.View.extend({
 	});
 
 	
+	
+
+//
+//
+//
+//
+//
+//
+// /*******************************************************************************/
+
+
+	//Product properties
+	App.Models.ProductOption = Backbone.Model.extend({
+
+		defaults: {
+
+			id: null,
+			name: null,
+			product_id: null,
+			value: null,
+			position: null
+		}
+	});
+
+	App.Views.ProductOptionsSandbox = Backbone.View.extend({
+
+		el: '#wpcart-product-options-sandbox',
+
+		initialize: function(){
+
+			vent.on('product:options', this.render, this);
+		},
+
+		render: function(){
+
+			this.setModel();
+			var template = _.template($('#wpcart-product-options-sandbox-template').html());
+			var view = template(this.model.toJSON());
+			$('#wpcart-product-options-sandbox').html(view);
+			console.log(this.el);
+		},
+
+		setModel: function(){
+
+			if(!this.model){
+
+				this.model = new App.Models.ProductOption;
+			}
+
+			return;
+		}
+
+
+	});
+
 	App.Router = Backbone.Router.extend({
 
 		routes : {
@@ -273,107 +330,13 @@ App.Views.ProductListItem = Backbone.View.extend({
 
 		
 	});
-
-//
-//
-//
-//
-//
-//
-// /*******************************************************************************/
-
-
-	//Product properties
-	
-	App.Models.Property = Backbone.Model.extend({
-	
-			defaults: {
-	
-				id: null,
-				name: null,
-				value_id: null,
-				value: null,
-	
-			}
-		});
-
-	App.Collections.Properties = Backbone.Collection.extend({
-
-		model: App.Models.Property
-	});
-
-	App.Views.Properties = Backbone.View.extend({
-
-		
-
-		initialize: function(){
-
-			vent.on('property:add', this.addNew, this);
-		},
-
-		render: function(){
-
-			console.log('You are successfull!');
-			//var template = _.template($('#wpcart-property-list-template').html());
-			 
-		},
-
-		addNew: function(){
-
-			//For some reason the view can't find #wpcart-property-list - so we will add
-			// it manually
-			
-			var property = new App.Models.Property;
-			var property_name = $('#wpcart-new-property-name').val();
-			property_name = $.trim(property_name);
-			//Let's empty the property name input field so we can add the next property
-			$('#wpcart-new-property-name').val('');
-
-
-			if(property_name){
-
-				property.set('name', property_name);
-
-				var _view = new App.Views.Property( { model: property } );
-				var _el =_view.render().el;
-				$('#wpcart-property-list').append(_el);
-				$(_el).find('.wpcart-tags-input').tagsInput({
-
-					height: 'auto',
-					width: '50%',
-				    defaultText: 'add an option',
-
-				});
-
-			}
-
-		},
-
-
-	});
-	App.Views.Property = Backbone.View.extend({
-
-		tagName: 'li',
-
-		render: function(){
-			
-			var template = _.template($('#wpcart-property-list-item-template').html());
-
-			this.$el.html(template(this.model.toJSON()));
-			this.$el.addClass('wpcart-property-options');
-
-			return this;
-		}
-
-	});
-
-	
 })();
 
 	router = new App.Router;
 	new App.Views.Product;
 	new App.Views.ProductList;
-	new App.Views.Properties;
+	new App.Views.ProductOptionsSandbox;
+	
 	Backbone.history.start();
 
 
