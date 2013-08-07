@@ -148,4 +148,31 @@ function wpcart_product_table()
 	
 		dbDelta($sql);
 
+		$table_name = $wpdb->prefix . 'WPCartVariant';
+		
+		$sql = "CREATE TABLE IF NOT EXISTS $table_name
+		(
+			id INT NOT NULL AUTO_INCREMENT
+			,PRIMARY KEY (id)
+			,product_id INT NOT NULL 
+			,Status VARCHAR(10) DEFAULT 'fresh' NOT NULL
+		)";
+
+		dbDelta($sql);
+
+		$table_name = $wpdb->prefix . 'WPCartVariantOptions';
+
+		$sql = "CREATE TABLE IF NOT EXISTS $table_name
+		(
+			id INT NOT NULL AUTO_INCREMENT
+			,PRIMARY KEY (id)
+			,variant_id INT NOT NULL 
+			,product_id INT NOT NULL 
+			,option_id INT NOT NULL 
+			,option_value_id INT NOT NULL 
+			,Status VARCHAR(10) DEFAULT 'fresh' NOT NULL
+		)";
+
+		dbDelta($sql);
+
 	}
