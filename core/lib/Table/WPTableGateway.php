@@ -27,7 +27,6 @@
 		}
 		
 		protected function _create_item($value, $field, $type){
-			
 			$this->validate('0', $field, $type);
 			
 			global $wpdb;
@@ -52,7 +51,7 @@
 				);
 				
 			$insert_id = $wpdb->insert_id;
-				
+
 			return $insert_id;
 			
 		}

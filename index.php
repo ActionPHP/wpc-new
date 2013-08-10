@@ -85,6 +85,7 @@ function wpcart_product_table()
 			,PRIMARY KEY (id)
 			,family_id INT NOT NULL 
 			,name VARCHAR(250) NOT NULL
+			,position INT NOT NULL
 			,Status VARCHAR(10) DEFAULT 'fresh' NOT NULL
 		)";
 
@@ -98,6 +99,7 @@ function wpcart_product_table()
 			,PRIMARY KEY (id)
 			,property_id INT NOT NULL 
 			,name TEXT NOT NULL
+			,position INT NOT NULL
 			,Status VARCHAR(10) DEFAULT 'fresh' NOT NULL
 		)";
 	
@@ -142,6 +144,7 @@ function wpcart_product_table()
 			,product_id INT NOT NULL 
 			,affects_price BIT NOT NULL 
 			,price_difference DECIMAL(11,2) NOT NULL
+			,position INT NOT NULL
 			,Status VARCHAR(10) DEFAULT 'fresh' NOT NULL
 		)";
 
@@ -154,7 +157,14 @@ function wpcart_product_table()
 		(
 			id INT NOT NULL AUTO_INCREMENT
 			,PRIMARY KEY (id)
-			,product_id INT NOT NULL 
+			,name VARCHAR(255) NOT NULL 
+			,product_id INT NOT NULL
+			,option_1_id INT NOT NULL
+			,option_1_value_id INT NOT NULL
+			,option_2_id INT NOT NULL
+			,option_2_value_id INT NOT NULL
+			,option_3_id INT NOT NULL
+			,option_3_value_id INT NOT NULL
 			,Status VARCHAR(10) DEFAULT 'fresh' NOT NULL
 		)";
 

@@ -19,7 +19,6 @@ class Table implements TableInterface
 
 		$this->update($item);
 
-
 		return $item_id;
 	}
 
