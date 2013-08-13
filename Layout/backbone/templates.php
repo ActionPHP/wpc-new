@@ -43,20 +43,27 @@
 		</label>
 		
 		<label>
-		<input type="checkbox" name="is-downloadable" value="true" /> Digital download
+		<input type="checkbox" name="is-downloadable" id="is-downloadable" value="true" /> Digital download
 		</label>
-		<label class="hide" >
+		<div id="wpcart-downloadable-options" >
+		<label >
 			<strong>Download URL</strong> <input type="text" name="download-url" value="" id="download-url" /> <button
 		type="button" class="btn btn-inverse">Upload file</button>
 		</label>
 
-		<!-- Manage product options -->
-		<div id="wpcart-product-options" >
-				<label>
-					<strong>Product options</strong>
-				</label>
+		<label>
+			<% if(id){ %>
 
-				<div id="wpcart-product-options-sandbox" ></div>
+				<p style="color: #777">Place this shortcode on the download page:</p>
+				<p><strong>[wpcart_download id="<%= id %>"]</p>
+
+
+				<% } %>
+		</label>
+		</div>
+		<!-- Manage product options -->
+		<div id="wpcart-product-options" ><em style="color: #ccc" >Coming
+		soon...</em>
 		</div>
 		<!-- End manage product options -->
 		<label>

@@ -67,6 +67,11 @@ jQuery(document).ready(function($){
 			var view = template(this.model.toJSON());
 			this.$el.html(view);
 
+			//Let's make sure we can toggle checkboxes that we need
+			//Downloadable product?
+			$('#is-downloadable')._toggle({toggle: '#wpcart-downloadable-options'});
+			
+
 			vent.trigger('product:options');
 		},
 

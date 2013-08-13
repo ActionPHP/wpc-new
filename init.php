@@ -13,7 +13,9 @@ function wpcart_admin_scripts($hook){
 		if($wpcart_page){
 
 			wp_enqueue_script( 'json2' );
-			wp_enqueue_script( 'wpcart_app', plugins_url('public/js/wpcart-app.js', __FILE__), array('backbone', 'jquery-ui-sortable') );
+			wp_enqueue_script('jquery');
+			wp_enqueue_script( 'wpcart__toggle_js',  plugins_url('public/js/_toggle.js', __FILE__), array('backbone', 'jquery') );
+			wp_enqueue_script( 'wpcart_app', plugins_url('public/js/wpcart-app.js', __FILE__), array('backbone', 'jquery-ui-sortable', 'wpcart__toggle_js') );
 			wp_enqueue_script( 'wpcart_bootstrap_js', "//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js", array( 'jquery') );
 			//wp_enqueue_script( 'wpcart_script_js', plugins_url('js/script.js', __FILE__) );
 			
