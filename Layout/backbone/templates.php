@@ -42,10 +42,14 @@
 			value="<%= sku %>" />
 		</label>
 		
+		<div id="wpcart-downloadable-options" style="border: 1px #ccc dashed; padding: 10px;
+		margin:0 0 15px 0">
+
 		<label>
-		<input type="checkbox" name="is-downloadable" id="is-downloadable" value="true" /> Digital download
+		<!-- <input type="checkbox" name="is-downloadable" id="is-downloadable" value="true" /> -->Digital download
+		options.
 		</label>
-		<div id="wpcart-downloadable-options" >
+
 		<label >
 			<strong>Download URL</strong> <input type="text" name="download-url" value="" id="download-url" /> <button
 		type="button" class="btn btn-inverse">Upload file</button>
@@ -62,9 +66,9 @@
 		</label>
 		</div>
 		<!-- Manage product options -->
-		<div id="wpcart-product-options" ><em style="color: #ccc" >Coming
+		<!-- <div id="wpcart-product-options" ><em style="color: #ccc" >Coming
 		soon...</em>
-		</div>
+		</div> -->
 		<!-- End manage product options -->
 		<label>
 			<input type="button" value="<%= (id) ? 'Save' : 'Create' %> Product" class="btn-large btn-primary" id="edit-product-button" /> 

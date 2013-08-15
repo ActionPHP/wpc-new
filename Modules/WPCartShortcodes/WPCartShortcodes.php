@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+require_once __WPCART_PATH__ . 'Modules/Product/Model/ProductFactory.php';
 class WPCartShortcodes
 {	
 	function __construct() {
@@ -19,7 +20,25 @@ class WPCartShortcodes
 	{
 		$id = $args['id'];
 
-		return '<input class="wpcart-listing" type="button" value="Add to cart" id="wpcart-item-' . $id . '" />';
+		$productFactory = new ProductFactory;
+
+		$product = $productFactory->product();
+		$item = $product->get($id);
+		//print_r($item);
+
+		$button = '';
+
+		if($item){
+
+			$price = $item->price;
+			
+			$button .= '<p style="margin-bottom: 10px;"><strong>Price: <span style="color: #cc0000;">'
+			. $price . '</strong></p>';
+			$button .= '<input class="wpcart-listing" type="button" value="Add to cart" id="wpcart-item-' . $id . '" />';
+	
+		}
+	
+		return $button;
 	}
 
 	public function buyButton($args=array())

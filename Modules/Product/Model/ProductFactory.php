@@ -1,6 +1,6 @@
 <?php
 
-require_once 'core/lib/Table/WPTableGateway.php';
+require_once __WPCART_PATH__ . 'core/lib/Table/WPTableGateway.php';
 require_once 'Product.php';
 require_once 'ProductTable.php';
 

@@ -69,7 +69,7 @@ jQuery(document).ready(function($){
 
 			//Let's make sure we can toggle checkboxes that we need
 			//Downloadable product?
-			$('#is-downloadable')._toggle({toggle: '#wpcart-downloadable-options'});
+			//$('#is-downloadable')._toggle({toggle: '#wpcart-downloadable-options'});
 			
 
 			vent.trigger('product:options');
