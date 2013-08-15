@@ -12,7 +12,7 @@ class CartTableFactory
 
 	public function cartTable()
 	{
-		$cartGateway = new WPTableGateway('WPCartTable');
+		$cartGateway = new WPTableGateway('WPCartCart');
 		$cartTable = new CartTable($cartGateway);
 		return $cartTable;
 	}

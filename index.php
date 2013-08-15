@@ -185,4 +185,61 @@ function wpcart_product_table()
 
 		dbDelta($sql);
 
+
+		$table_name = $wpdb->prefix . 'WPCartTransaction';
+
+		 $sql = "CREATE TABLE IF NOT EXISTS ".$table_name." (
+
+	      id mediumint(9) NOT NULL AUTO_INCREMENT,
+	      
+	      customer_id int NOT NULL,
+	      
+	      first_name varchar(25) NOT NULL,
+
+	      last_name varchar(50) NOT NULL,
+
+	      paypal_email varchar(100) NOT NULL,
+
+	      product_id int NOT NULL,
+	      
+	      transaction_type varchar (25) NOT NULL,
+	      
+	      amount int NOT NULL,
+	      
+	      payer_id varchar (25) NOT NULL,
+
+	      paypal_ipn TEXT NOT NULL,
+	      
+	      transaction_id varchar (25) NOT NULL,
+	      
+	      transaction_time TIMESTAMP,
+
+	      Status varchar(10) NOT NULL,
+
+	      UNIQUE KEY id (id)
+
+      );";
+
+
+		dbDelta($sql);
+
+		$table_name = $wpdb->prefix . 'WPCartCart';
+
+		$sql = "CREATE TABLE IF NOT EXISTS $table_name
+		(
+			id INT NOT NULL AUTO_INCREMENT
+			,PRIMARY KEY (id)
+			,customer_id int NOT NULL
+			,currency VARCHAR(3) NOT NULL
+			,amount DECIMAL(11,2) NOT NULL
+			,shipping DECIMAL(11,2) NOT NULL
+			,total_amount DECIMAL(11, 2) NOT NULL
+			,content TEXT NOT NULL
+			,time_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+			,Status VARCHAR(10) DEFAULT 'fresh' NOT NULL
+		)";
+	
+		dbDelta($sql);
+
+
 	}

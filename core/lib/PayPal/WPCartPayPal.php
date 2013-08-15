@@ -1,13 +1,25 @@
 <?php
 ///TODO: Come back to this and verify payments properly
+require_once __WPCART_PATH . 'Modules/Cart/CartTableFactory.php';
+require_once 'WPCartTransactionTable.php';
+
 class WPCartPayPal
 {	
 	private $paypal_url = 'www.sandbox.paypal.com';
 	private $business_email = 'payhere@actionphp.com';
 	private $currency = 'USD';
-	private $transaction;
+	private $transaction_id;
 
+	function __construct() {
+		
+		$transactionTable = new WPCartTransactionTable;
+		$this->transactionTable = $transactionTable;
 
+		//We need the shopping cart table to ensure the transaction details are
+		// correct.
+		$cartTableFactory = new CartTableFactory;
+		$this->cartTable = $cartTableFactory->cartTable();
+	}
 
 	public function process()
 	{
@@ -44,12 +56,15 @@ class WPCartPayPal
 		$payment_amount = $_POST['mc_gross'];
 		$payment_currency = $_POST['mc_currency'];
 		$txn_id = $_POST['txn_id'];
-		$this->transaction = $txn_id;
+		$this->transaction_id = $txn_id;
 		$receiver_email = $_POST['receiver_email'];
 		$payer_email = $_POST['payer_email'];
 
 		$this->cart_id = $_POST['custom'];
-
+		//Let's set cart details - we want to compare this transaction to what we
+		// stored at the checkout
+		$this->setCartDetails();
+		
 		$received_data = $_POST;
 		
 		if (!$fp) {
@@ -69,11 +84,9 @@ class WPCartPayPal
 		
 			if(
 
-				$payment_status == 'Completed' 
-				//&& !$this->transactionExists()
-				//&& $receiver_email == $this->business_email
-				//&& $payment_currency == $this->currency
-				//&& $payment_amount == $this->payment_amount
+				$payment_status == 'Completed' && $this->verifyTransaction($receiver_email,
+					$payment_currency, $payment_amount)
+				
 				){ 	return true;}
 
 		}
@@ -89,18 +102,54 @@ class WPCartPayPal
 
 		update_option('aa2', get_defined_vars());
 
+	}
+
+	public function verifyTransaction()
+	{
+			if(!$this->transactionExists()){
+
+				return true;
 			}
+
+			//&& $receiver_email == $this->business_email
+			//&& $payment_currency == $this->currency
+			//&& $payment_amount == $this->payment_amount
+			
+			return false;
+			
+	}
 
 	public function transactionExists()
 	{
-		$transaction = $this->transaction;
+		
+		//Let's get the transaction from the cart table
+		//
+		
+		$transactionTable = $this->transactionTable;
+
+		$transaction = $transactionTable->get_by('transaction_id', $this->transaction_id);
+
+		if($transaction){
+
+			return true;
+		}
 
 		return false;
 	}
 
 	public function verifyAmount($amount)
 	{
-		
+		$cart = $this->getCartDetails;
+
+		$total_amount = $cart->total_amount;
+
+		if($amount = $total_amount){
+
+			return true;
+		}
+
+		return false;
+
 	}
 
 	public function verifyBusinessEmail($business_email)
@@ -110,12 +159,32 @@ class WPCartPayPal
 
 	public function verifyCurrency($currency)
 	{
-		
+		$cart = $this->getCartDetails;
+
+		$transaction_currency = $cart->currency;
+
+		if($transaction_currency == $currency){
+
+			return true;
+		}
+
+		return false;
+
 	}
 
-	public function getCartTable()
+	public function setCartDetails()
 	{
-		
+		$cartTable = $this->cartTable;
+		$cart_id = $this->cart_id;
+
+		$cartDetails = $cartTable->get($cart_id);
+
+		$this->cart = $cartDetails;
+	}
+
+	public function getCartDetails()
+	{
+		return $this->cartDetails;
 	}
 
 }
