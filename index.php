@@ -9,8 +9,12 @@ Author URI: http://ActionPHP.com
 License: GPL2
 */
 ?><?php
+
 $admin_dir = getcwd();
 define('__WPCART_PATH__', plugin_dir_path(__FILE__));
+
+//If this is a checkout action, we want to intercept it
+require_once 'intercept-checkout.php';
 
 //Let's determine if this
 $wpcart_shopping_action = (isset($_REQUEST['action']) && $_REQUEST['action'] == 'wpcart_shopping_route' ) ?  true :  false;

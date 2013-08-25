@@ -56,6 +56,12 @@ class WPCartRouter
 		die();
 	}
 
+	public function checkout()
+	{
+		$this->route = 'checkout';
+		$this->runApp();
+	}
+
 	public function runApp()
 	{
 		chdir(__WPCART_PATH__);

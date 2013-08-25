@@ -1,7 +1,7 @@
 <?php
 
-require 'core/lib/View/JSONView.php';
-require 'core/lib/Table/WPTableGateway.php';
+require_once 'core/lib/View/JSONView.php';
+require_once 'core/lib/Table/WPTableGateway.php';
 require_once 'Modules/Product/Model/Product.php';
 require_once 'Modules/Product/Model/ProductTable.php';
 class ProductController extends AbstractController

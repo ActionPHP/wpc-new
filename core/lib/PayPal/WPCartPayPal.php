@@ -1,7 +1,7 @@
 <?php
 ///TODO: Come back to this and verify payments properly
-require_once __WPCART_PATH . 'Modules/Cart/CartTableFactory.php';
-require_once 'WPCartTransactionTable.php';
+require_once __WPCART_PATH__ . 'Modules/Cart/Model/CartTableFactory.php';
+require_once __WPCART_PATH__ . 'core/lib/PayPal/WPCartTransactionTable.php';
 
 class WPCartPayPal
 {	

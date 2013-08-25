@@ -1,7 +1,7 @@
 <?php
 	
-require_once '../Table/Table.php';
-require_once '../Table/WPTableGateway.php';
+require_once __WPCART_PATH__ . 'core/lib/Table/Table.php';
+require_once __WPCART_PATH__ . 'core/lib/Table/WPTableGateway.php';
 
 class WPCartTransactionTable extends Table
 {

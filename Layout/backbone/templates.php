@@ -8,24 +8,27 @@
 			<strong>Product name:</strong> <input class="wpcart-long-input" type="text" name="name"
 			id="name" value="<%= name %>" />
 		</label>
-				
+
+		<label>
+			<strong>Price: </strong> <input type="text" id="price" name="price" value="<%= price %>" />
+		</label>
+
+		<label>
+			<strong>Product images: </strong> <button  type="button" class="btn btn-inverse">Manage images</button>
+		</label>
+		<!--		
 		<label>
 			<strong>Brief description: </strong> <br/><textarea id="brief-description" name="brief-description"
 			><%= (brief_description) ? brief_description : null  %></textarea>
 		</label>
-	<!--	-->
+		-->
 		<label>
 			<strong>Description: </strong> <br/><textarea id="description" name="description"
 			><%= description %></textarea>
 		</label>
-	
-		<label>
-			<strong>Price: </strong> <input type="text" id="price" name="price" value="<%= price %>" />
-		</label>
+
 	<!-- -->
-		<label>
-			<strong>Product images: </strong> <button  type="button" class="btn btn-inverse">Manage images</button>
-		</label>
+
 		
 		<label>
 			<strong>Tags</strong> <input type="text" name="tags" id="tags"

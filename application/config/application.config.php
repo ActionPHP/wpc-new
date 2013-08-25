@@ -32,6 +32,11 @@ return array(
 
 					),
 
+				'checkout' => array(
+						'Module' => 'Checkout',
+						'Controller' => 'CheckoutController',
+					),
+
 			),
 
 		'module_path' => array(

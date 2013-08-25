@@ -36,9 +36,15 @@ class Router
 		
 		$params = $this->getRouteParams();
 		
+		//If no $params given let's set it to an empty array.
+		$params = ($params) ? $params : array();
+		
 		//Let's execute the action
 
 		$action = $this->getRouteAction();
+
+		//If no action has been given we will go for index action.
+		$action = ($action) ? $action : 'index';
 
 		$controller->setAction($action);
 		$controller->setParams($params);

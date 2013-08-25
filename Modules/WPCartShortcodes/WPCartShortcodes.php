@@ -53,6 +53,26 @@ class WPCartShortcodes
 		//This uniquely identifies our shopping cart
 		$cart_id = $_SESSION['wpcart_cart_id'];
 
+		//$checkout_page = 'wpcart';
+
+		switch ($checkout_page) {
+			case 'wpcart':
+				
+					$action = site_url() . '?checkout';
+				
+				break;
+			
+			case 'paypal':
+
+					$action = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
+
+				break;
+			default:
+					$action = '';//site_url() . '?checkout''';
+				
+				break;
+		}
+
 		$template = '<script type="text/template" id="wpcart-ajax-template" >
 
 		<!-- PayPal details -->
@@ -74,18 +94,19 @@ class WPCartShortcodes
 
 		$cart .= '<div id="wpcart-cart" class="wpcart-basket" >
 
-		<form method="post" action="https://www.sandbox.paypal.com/cgi-bin/webscr" >
-	    <input type="hidden" name="business" value="payhere@actionphp.com">
+		<form method="post" action="'. $action . '" >
+	    <input type="hidden" name="business" value="payhere@actionphp.com"/>
 	    <input type="hidden" name="notify_url" value="' . $notify_url
 	    . '"/>
-		<input type="hidden" name="cmd" value="_cart">
-		<input type="hidden" name="upload" value="1">
+		<input type="hidden" name="cmd" value="_cart"/>
+		<input type="hidden" name="upload" value="1"/>
 	    <input type="hidden" name="custom"	value="' . $cart_id . '" />
 
 			<ul id="wpcart-cart-basket"></ul>
 			
 			<div style="padding: 10px;" ><strong>Subtotal: </strong>$<span class="wpcart-subtotal" ></span></div>
 			<div id="wpcart-buttons" >
+			<input type="hidden" name="wpcart_checkout" value="true" />
 			<input type="submit" value="Checkout" />
 			</div>
 

@@ -29,16 +29,6 @@ class JSONView extends AbstractView
 		return $this->data;
 	}
 
-	public function setTemplate($template)
-	{
-		# code...
-	}
-
-	public function getTemplate()
-	{
-		# code...
-	}
-
 	public function output()
 	{
 		# code...
