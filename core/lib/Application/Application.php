@@ -13,6 +13,7 @@ class Application
 	{
 		$this->router = new Router;
 		$this->routeMatch = new RouteMatch;
+		$this->reg = Registry::getInstance();
 	}
 
 	public function run()
@@ -26,12 +27,16 @@ class Application
 		$route = $this->getRoute();
 		$action = $this->getAction();
 
+		//If action is blank, it's going to be set to index
+		$action = ($action) ? $action : 'index';
+
 		$this->routeMatch->setRoute($route);
 		$this->routeMatch->setAction($action);
 		$this->routeMatch->setParams($this->getParams());
 
 		$matchedRoute = $this->routeMatch->match();
 
+		$this->reg->matchedRoute = $matchedRoute;
 
 		//Let's pass the matched route to the router
 		$this->router->setRoute($matchedRoute);

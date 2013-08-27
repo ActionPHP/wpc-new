@@ -13,6 +13,10 @@ License: GPL2
 $admin_dir = getcwd();
 define('__WPCART_PATH__', plugin_dir_path(__FILE__));
 
+//Let's include our registry so it can be used through out the script
+require_once __WPCART_PATH__ . 'core/lib/Registry/Registry.php';
+
+
 //If this is a checkout action, we want to intercept it
 require_once 'intercept-checkout.php';
 

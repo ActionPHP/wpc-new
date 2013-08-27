@@ -11,6 +11,9 @@ class Router
 	private $modules_path;
 	private $route;
 
+	function __construct() {
+		$this->reg = Registry::getInstance();
+	}
 	public function execute()
 	{
 		//Let's get the controller path
@@ -43,11 +46,10 @@ class Router
 
 		$action = $this->getRouteAction();
 
-		//If no action has been given we will go for index action.
-		$action = ($action) ? $action : 'index';
-
 		$controller->setAction($action);
 		$controller->setParams($params);
+
+
 		return $controller->invoke();
 	}
 
@@ -115,6 +117,7 @@ class Router
 	public function setModulesPath($modules_path)
 	{
 		$this->modules_path = $modules_path;	
+		$this->reg->modules_path = $this->modules_path;
 	}
 
 	public function getModulesPath()
