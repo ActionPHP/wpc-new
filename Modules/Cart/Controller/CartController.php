@@ -119,7 +119,11 @@ class CartController extends AbstractController
 	{
 		$basket =$this->cart->getBasket();
 
+		//This is the current cart state
 		$_SESSION['wpcart_cart'] = $basket;
+
+		//Let's also save it in the CartTable - for reference and payment verification
+		$this->updateCartTable($basket);
 
 		return $basket;
 	}
@@ -145,7 +149,12 @@ class CartController extends AbstractController
 
 	public function updateCartTable($basket)
 	{
-		# code...
+		$cartTable = $this->cartTable;
+
+		$update = new stdClass();
+
+		$update->content = $basket;
+		
 	}
 	public function getProductTable()
 	{

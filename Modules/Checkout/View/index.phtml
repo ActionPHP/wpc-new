@@ -1,3 +1,23 @@
 <?php
 
- print_r($_data);
+?>
+<html>
+<head>
+	<title>WPCart Shopping Cart</title>
+	<?php wp_enqueue_script("jquery"); ?>
+
+	<?php wp_head(); ?>
+</head>
+<body>
+	<h1>Checkout</h1>
+	<?php print_r($_SESSION['wpcart_cart']); ?>
+<div id="cart-table"></div>
+<input type="button" value="Checkout">
+
+<script>
+	
+	jQuery('#cart-table').html('This is the content.');
+
+</script>
+</body>
+</html>

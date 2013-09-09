@@ -16,14 +16,19 @@ class HTMLView extends AbstractView
 		$template = $this->getTemplate();
 
 		$_data = $this->data;
-
-		if($template){
+		
+		if($template && file_exists($template)){
 			
+			extract($_data);
 			include $template;
 
+		} else {
+
+			throw new Exception("View template not found!");
+			
 		}
 		
-		return 'This is the checkout!';
+	//	return 'This is the checkout!';
 	}
 
 	public function setTemplate($template)

@@ -1,4 +1,5 @@
 <?php
+//TODO: rework this to remove dependence on Registry::getInstance()
 require_once 'core/lib/View/HTMLView.php';
 class CheckoutController extends AbstractController
 
@@ -9,8 +10,23 @@ class CheckoutController extends AbstractController
 		
 		$data = array('where' => 'checkout');
 
-		$view = new HTMLView($data);
-		print_r(Registry::getInstance());
-		return new HTMLView($data);
+		$this->view = new HTMLView($data);
+
+		$template = $this->getViewPath();
+		$this->view->setTemplate($template);
+		
+		
+		return $this->view;
+	}
+	
+	public function getViewPath()
+	{
+		$reg = Registry::getInstance();
+
+		$route = $reg->matchedRoute;
+		
+		$viewPath = $reg->modules_path . '/' . $route->Module . '/View/' . $route->Action . '.phtml' ;
+		
+		return $viewPath;
 	}
 }
